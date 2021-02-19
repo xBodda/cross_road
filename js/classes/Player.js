@@ -9,6 +9,7 @@ function CreatePlayer()
 }
 var moveDistance = 600;
 var canMove = true;
+var treeMove = true;
 var animationSteps = 10;
 var animationSpeed = 5; // 5 milliseconds for each step (10*5) = 50 milliseconds
 function animateJump(player){
@@ -24,12 +25,19 @@ function animateJump(player){
     },moveDistance/animationSteps/2*animationSpeed);
 
 }
-function animateMove(player, direction){
-    if(canMove){
+function animateMove(player, direction,treeMoveC = false){
+   
+    if(canMove || (treeMove && treeMoveC)){
+    if(treeMoveC){
+        treeMove = false;
+        canMove = false;
+    }
     animateJump(player);
     canMove = false;
     for(let i = 0; i<moveDistance/animationSteps;i++)
         setTimeout(function(){
+            if(!treeMoveC)
+                treeHit(player,direction);
             if(direction == "Up" || direction == "Down"){
                 player.translateZ(10*(direction=="Up"?-1:1));
                 cameraG.translateZ(10*(direction=="Up"?-1:1));
@@ -39,8 +47,10 @@ function animateMove(player, direction){
 
             }
         },i*animationSpeed);
+        if(!canMove)
         setTimeout(function(){
             canMove = true;
+            treeMove = true;
         },moveDistance/animationSteps*5);
     }
 }

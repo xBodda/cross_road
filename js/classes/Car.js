@@ -105,7 +105,6 @@ function carCrash(car){
         PlayerZ = PLAYER.position.z;
 
     if(PlayerX >= carX - 200 && PlayerX <= carX + 200){
-        console.log('x');
         if(PlayerZ >= carZ - 200 && PlayerZ <= carZ + 200){
             alert('game over');
         }

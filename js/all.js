@@ -33,50 +33,6 @@ function Snowman()
 
 }
 
-function Tree()
-{
-    this.WholeTree = new THREE.Group();
-
-    var trunk = new THREE.Mesh(
-        new THREE.BoxGeometry(30, 100, 40),
-        new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true})
-    );
-    trunk.translateY(612);
-    trunk.castShadow = true;
-    trunk.receiveShadow = true;
-
-    var PositionCounter = 40;
-    var PCounter = 400;
-    var InitialTranslate = 650;
-
-    this.WholeTree.add(trunk);
-    for(var i = 1; i <= 5;i++)
-    {
-        var x = i;
-        x = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(PCounter -= PositionCounter, 50, PCounter -= PositionCounter),
-            new THREE.MeshLambertMaterial({ color: 0x7aa21d, flatShading: true})
-        );
-        x.translateY(InitialTranslate+=PositionCounter);
-        x.castShadow = true;
-        x.receiveShadow = false;
-        this.WholeTree.add(x);
-    }
-}
-
-function CreatePlatform(startingPosition = 0){
-    var platform = new startingPlatform(startingPosition);
-    scene.add(platform);
-}
-
-function CreateTree()
-{
-    var tree = new Tree();
-    scene.add(tree.WholeTree);
-    tree.WholeTree.position.set(0, 0, 0);
-}
-
-
 function Lights() 
 {
     var frontLight = new THREE.DirectionalLight(0xffffff, 0.6);
@@ -117,6 +73,7 @@ function init()
     PLAYER = CreatePlayer();
     PlayerControls(PLAYER);
     CreatePlatform(startingPositionZ);
+    createPlatforms(startingPositionZ);
     PLAYER.position.set(0,0,startingPositionZ);
 
     // CreateTree();
