@@ -36,5 +36,7 @@ function createPlatforms(startingPositionZ = 0){
             }
             startingPositionZ-=600;
         }
+
+        CreateCoins();
         CreateTrees();
 }

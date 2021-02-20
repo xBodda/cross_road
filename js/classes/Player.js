@@ -1,4 +1,3 @@
-
 var PLAYER;
 function CreatePlayer()
 {
@@ -26,7 +25,7 @@ function animateJump(player){
 
 }
 function animateMove(player, direction,treeMoveC = false){
-   
+
     if(canMove || (treeMove && treeMoveC)){
     if(treeMoveC){
         treeMove = false;
