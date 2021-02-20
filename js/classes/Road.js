@@ -17,15 +17,13 @@ function Road(LocationZ = 0)
     this.object.position.set(0,0,LocationZ);
     return this.object;
 }
-/**  @params roadMap: 1 = road, 0 = Resting Ground */
-var roadsMap = [1,0,0,1,1,0,1,0,1];
-var roads = [];
+var roads = []; 
 function createRoads(startingPositionZ = 0){
 /**
  * @Params startingPositionZ: the position of the starting platform
  * We subtract 600 as it's the size of the starting platform
  */
-    for(let i = 0; i<roadsMap.length; i++){
+    for(let i = roads_count; i<roadsMap.length; i++){
         if(roadsMap[i]){
             let road = new Road(startingPositionZ - 600);
             scene.add(road);
@@ -33,7 +31,8 @@ function createRoads(startingPositionZ = 0){
             {
                 road:road,
                 direction:Math.floor(Math.random()*1+0.5),
-                difficulty:Math.ceil(Math.random()*10)*100
+                difficulty:Math.ceil(Math.random()*10)*100,
+                lane:i
             };
             roads.push(roadObj)
         }

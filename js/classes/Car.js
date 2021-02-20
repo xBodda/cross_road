@@ -47,22 +47,24 @@ function CreateCar()
     return car.WholeCar;
 }
 var cars = [];
-function SpawnCar(road = {road:null,direction:0,difficulty:0}){
-    var car = CreateCar();
+function SpawnCar(road = {road:null,direction:0,difficulty:0,lane:0}){
+    if(Math.abs(playerPosition - road.lane) < 7){
+        if(road.road !== null){
+            var car = CreateCar();
+            var difficulty = road.difficulty,
+                direction = road.direction,
+                positionZ = road.road.position.z;
 
-    if(road.road !== null){
-        var difficulty = road.difficulty,
-            direction = road.direction,
-            positionZ = road.road.position.z;
-            car.position.set(-8000*((direction)?1:-1),0,positionZ);
-            cars.push({car:car,road:road});
-    }else{
-        console.error("Road is null");
+                car.position.set(-8000*((direction)?1:-1),0,positionZ);
+                cars.push({car:car,road:road});
+        }else{
+            console.error("Road is null");
+        }
     }
 }
 
 function SpawnCars(){
-    for(let i = 0; i<roads.length; i++){
+    for(let i = car_roads_count; i<roads.length; i++){
         SpawnCar(roads[i]);
         renderer.render(scene, camera);
         setInterval(function(){

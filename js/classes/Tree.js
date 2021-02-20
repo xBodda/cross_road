@@ -41,7 +41,7 @@ function CreateTree()
 var trees = [];
 function CreateTrees()
 {
-    for(let i = 0; i < platforms.length; i++){
+    for(let i = platforms_count; i < platforms.length; i++){
         var trees_number = Math.floor(Math.random() * 20 + 2);
         var treeZ = platforms[i].position.z;
         for(let j = 0; j<trees_number;j++){
