@@ -13,19 +13,22 @@ var treeMove = true;
 var animationSteps = 10;
 var animationSpeed = 5; // 5 milliseconds for each step (10*5) = 50 milliseconds
 function animateJump(player){
-    for(let i = 0; i<moveDistance/animationSteps/2;i++)
-        setTimeout(function(){
-            player.translateY(20);
-        },i*animationSpeed);
-    setTimeout(function(){
+    if(!pause){
         for(let i = 0; i<moveDistance/animationSteps/2;i++)
+            setTimeout(function(){
+                player.translateY(20);
+            },i*animationSpeed);
         setTimeout(function(){
-            player.translateY(-20);
-        },i*animationSpeed);
-    },moveDistance/animationSteps/2*animationSpeed);
+            for(let i = 0; i<moveDistance/animationSteps/2;i++)
+            setTimeout(function(){
+                player.translateY(-20);
+            },i*animationSpeed);
+        },moveDistance/animationSteps/2*animationSpeed);
+    }
 
 }
 function animateMove(player, direction,treeMoveC = false){
+    if(!pause){
     updateLevel();
     if(canMove || (treeMove && treeMoveC)){
     if(treeMoveC){
@@ -33,6 +36,7 @@ function animateMove(player, direction,treeMoveC = false){
         canMove = false; 
     }
     setPosition(direction);
+    user_interface.updateScore();
     animateJump(player);
     canMove = false;
     for(let i = 0; i<moveDistance/animationSteps;i++)
@@ -55,11 +59,14 @@ function animateMove(player, direction,treeMoveC = false){
             treeMove = true;
         },moveDistance/animationSteps*5);
     }
+    }
 }
 
 function PlayerControls(player){
     var b = document.body;
     b.addEventListener('keydown',function(e){
+        if(pause)
+            return;
         e.preventDefault();
         if(e.key == 'w' || e.key == 'ArrowUp'){
             animateMove(player, "Up");
@@ -84,6 +91,8 @@ function PlayerControls(player){
 }
 var playerPosition = -1;
 function setPosition(direction = ""){
+    if(pause)
+        return;
     if(direction == "Up"){
         playerPosition++;
     }

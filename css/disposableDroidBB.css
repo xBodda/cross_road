@@ -1,0 +1,23 @@
+@font-face {
+    font-family: dispsableDroidBB;
+    src: url(../fonts/DisposableDroidBB/DisposableDroidBB.ttf);
+}
+  
+@font-face {
+    font-weight: bold;
+    font-family: dispsableDroidBB;
+    src: url(../fonts/DisposableDroidBB/DisposableDroidBB_bld.ttf);
+}
+
+@font-face {
+    font-style: italic;
+    font-family: dispsableDroidBB;
+    src: url(../fonts/DisposableDroidBB/DisposableDroidBB_ital.ttf);
+}
+
+@font-face {
+    font-weight: bold;
+    font-style: italic;
+    font-family: dispsableDroidBB;
+    src: url(../fonts/DisposableDroidBB/DisposableDroidBB_bldital.ttf);
+}
