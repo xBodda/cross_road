@@ -29,7 +29,7 @@ function createPlatforms(startingPositionZ = 0){
      * @Params startingPositionZ: the position of the starting platform
      * We subtract 600 as it's the size of the starting platform
      */
-        for(let i = 0; i<roadsMap.length; i++){
+        for(let i = roads_count; i<roadsMap.length; i++){
             if(!roadsMap[i]){
                 var platform = CreatePlatform(startingPositionZ - 600);
                 platforms.push(platform);

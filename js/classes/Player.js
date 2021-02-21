@@ -26,18 +26,20 @@ function animateJump(player){
 
 }
 function animateMove(player, direction,treeMoveC = false){
-   
+    updateLevel();
     if(canMove || (treeMove && treeMoveC)){
     if(treeMoveC){
         treeMove = false;
-        canMove = false;
+        canMove = false; 
     }
+    setPosition(direction);
     animateJump(player);
     canMove = false;
     for(let i = 0; i<moveDistance/animationSteps;i++)
         setTimeout(function(){
             if(!treeMoveC)
                 treeHit(player,direction);
+            
             if(direction == "Up" || direction == "Down"){
                 player.translateZ(10*(direction=="Up"?-1:1));
                 cameraG.translateZ(10*(direction=="Up"?-1:1));
@@ -79,4 +81,16 @@ function PlayerControls(player){
             return;
         }
     })
+}
+var playerPosition = -1;
+function setPosition(direction = ""){
+    if(direction == "Up"){
+        playerPosition++;
+    }
+    else if(direction == "Down"){
+        playerPosition--;
+    }
+}
+function getPlayerPosition(){
+    return playerPosition;
 }
