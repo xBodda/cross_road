@@ -44,12 +44,54 @@ function Lights()
 }
 
 
+function createSnow() {
+
+    var snowCount = 10000;
+  
+    var snowGeometry = new THREE.Geometry();
+  
+    for (var p = 0; p < snowCount; p++) {
+  
+      var x = Math.random() * 15000 - 2000;
+      var y = Math.random() * 4000;
+      var z = Math.random() * 8000 - 2000;
+  
+      var particle = new THREE.Vector3(x, y, z);
+  
+      snowGeometry.vertices.push(particle);
+    }
+
+    var snowMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 10 });
+  
+    snowGeometry = new THREE.Points(snowGeometry, snowMaterial);
+  
+    return snowGeometry;
+}
+
+
+function snowAnimate(speed) {
+    var vertice = particles.geometry.vertices;
+    for (var i = 0; i < vertice.length; i++) {
+        var vert = vertice[i];
+        if (vert.y < 0) {
+        vert.y = Math.random() * 2000;
+        }
+        vert.y = vert.y - speed * time;
+    }
+    particles.geometry.verticesNeedUpdate = true;
+}
+
+
 function init() 
 {
     renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true
     });
+
+    clock = new THREE.Clock(true);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
@@ -69,6 +111,9 @@ function init()
     PlayerControls(PLAYER);
     CreatePlatform(_startingPositionZ);
     PLAYER.position.set(0,0,_startingPositionZ);
+
+    particles = createSnow();
+    scene.add(particles);
     // CreateTree();
     Lights();
     renderer.render(scene, camera);
@@ -81,5 +126,14 @@ window.addEventListener('resize',function(){
     camera.aspect = (window.innerWidth/window.innerHeight);
     camera.updateProjectionMatrix();
 
-})
+});
 init();
+
+function updateFrame() 
+{
+  time = clock.getDelta();
+  snowAnimate(300);
+  renderer.render(scene, camera);
+  requestAnimationFrame(updateFrame);
+}
+requestAnimationFrame(updateFrame);

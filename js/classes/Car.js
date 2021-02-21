@@ -82,7 +82,7 @@ function animateCars(){
         var difficulty = cars[i].road.difficulty;
         var direction = cars[i].road.direction;
         direction = ((direction)?1:-1);
-        var speed = (difficulty*200 / 1000 + 100) * direction;
+        var speed = (difficulty*100 / 500 + 100) * direction;
         car.translateX(speed);
         carCrash(car);
         if(car.position.x > 10000 || car.position.x < -10000){
