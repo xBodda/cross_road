@@ -68,18 +68,16 @@ function init()
     camera.lookAt(new THREE.Vector3(0, 800, 0));
     cameraG = new THREE.Group();
     cameraG.add(camera);
-    var startingPositionZ = 1000;
     scene.add(cameraG);
     PLAYER = CreatePlayer();
     PlayerControls(PLAYER);
-    CreatePlatform(startingPositionZ);
-    createPlatforms(startingPositionZ);
-    PLAYER.position.set(0,0,startingPositionZ);
-
+    CreatePlatform(_startingPositionZ);
+    PLAYER.position.set(0,0,_startingPositionZ);
     // CreateTree();
     Lights();
-    createRoads(startingPositionZ);
     renderer.render(scene, camera);
+    genereateLevel();
+
 }
 
 init();
