@@ -5,7 +5,7 @@ function Platform(startingLocationZ = 0)
         sizeZ = 600;
     var Plane = new THREE.Mesh(
         new THREE.PlaneGeometry(sizeX, sizeZ),
-        new THREE.MeshLambertMaterial({ color: 0x006400, flatShading: true})
+        new THREE.MeshLambertMaterial({ flatShading: true, map: THREE.ImageUtils.loadTexture('img/snow.jpg')})
     );
     Plane.rotateX(-Math.PI / 2 );
     Plane.position.set(0,0,0);

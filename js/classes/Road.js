@@ -8,7 +8,7 @@ function Road(LocationZ = 0)
         sizeZ = 600;
     var Plane = new THREE.Mesh(
         new THREE.PlaneGeometry(sizeX, sizeZ),
-        new THREE.MeshLambertMaterial({ color: 0x444444, flatShading: true})
+        new THREE.MeshLambertMaterial({flatShading: true, map: THREE.ImageUtils.loadTexture('img/road.jpg')})
     );
     Plane.rotateX(-Math.PI / 2 );
     Plane.castShadow = true;
