@@ -55,7 +55,6 @@ function animateMove(player, direction,treeMoveC = false){
         },moveDistance/animationSteps*5);
     }
 }
-
 function PlayerControls(player){
     var b = document.body;
     b.addEventListener('keydown',function(e){

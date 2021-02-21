@@ -1,4 +1,6 @@
 
+
+
 function Coin()
 {
     this.WholeCoin = new THREE.Group();
@@ -8,20 +10,32 @@ function Coin()
     var PCounter = 400;
     var InitialTranslate = 300;
 
+    function animate()
+     {
+       x.rotation.z +=0.01
 
-    for(var i = 1; i <= 5;i++)
+       requestAnimationFrame(animate)
+       renderer.render(scene, camera)
+       cancelAnimationFrame(animate)
+     }
+
+    for(var i = 1; i <= 1;i++)
     {
         var x = i;
         x = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(120,120, 40,),
+            new THREE.CylinderGeometry(120,120, 40,100),
             new THREE.MeshLambertMaterial({ color: 0xdeba07, flatShading: true})
         );
         x.translateY(150);
         x.castShadow = true;
         x.receiveShadow = true;
+        x.rotation.x = 2
+        x.rotation.y = 1.5
         this.WholeCoin.add(x);
+        animate();
     }
 }
+
 
 
 function CreateCoin()
