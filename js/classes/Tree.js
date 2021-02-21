@@ -1,3 +1,4 @@
+var treeTexture = new THREE.MeshLambertMaterial({ flatShading: true,  map: THREE.ImageUtils.loadTexture('img/tree.jpg')})
 
 function Tree()
 {
@@ -21,7 +22,7 @@ function Tree()
         var x = i;
         x = new THREE.Mesh(
             new THREE.BoxBufferGeometry(PCounter -= PositionCounter, 50, PCounter -= PositionCounter),
-            new THREE.MeshLambertMaterial({ flatShading: true,  map: THREE.ImageUtils.loadTexture('img/tree.jpg')})
+            treeTexture
         );
         x.translateY(InitialTranslate+=PositionCounter);
         x.castShadow = true;

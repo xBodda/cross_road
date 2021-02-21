@@ -1,3 +1,5 @@
+var platformTexture = new THREE.MeshLambertMaterial({ flatShading: true, map: THREE.ImageUtils.loadTexture('img/snow.jpg')});
+
 function Platform(startingLocationZ = 0)
 {
     this.object = new THREE.Group();
@@ -5,7 +7,7 @@ function Platform(startingLocationZ = 0)
         sizeZ = 600;
     var Plane = new THREE.Mesh(
         new THREE.PlaneGeometry(sizeX, sizeZ),
-        new THREE.MeshLambertMaterial({ flatShading: true, map: THREE.ImageUtils.loadTexture('img/snow.jpg')})
+        platformTexture
     );
     Plane.rotateX(-Math.PI / 2 );
     Plane.position.set(0,0,0);
