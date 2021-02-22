@@ -26,7 +26,7 @@ function UI(){
         this.controls.appendChild(this.controlLeft);
     
     this.updateScore = function(){
-        this.score.innerHTML = getPlayerPosition()+1;
+        this.score.innerHTML = getPlayerPosition()+1+coinScore;
     }
 
     window.addEventListener('keydown',function(e){

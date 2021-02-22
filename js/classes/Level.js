@@ -5,14 +5,14 @@ var platforms_count = 0;
 /**  @params roadMap: 1 = road, 0 = Resting Ground */
 var roadsMap = [];
 function updateLevel(){
-    if(getPlayerPosition() >= roadsMap.length - 10){
+    if(getPlayerPosition() >= roadsMap.length - 12){
         genereateLevel();
     }
 }
 function genereateLevel(){
     let platform_c=0;
     let roads_c=0;
-    let generate_count = 20;
+    let generate_count = 15;
     for(let i = 0; i< generate_count; i++){
         var x = Math.round(Math.random() + 0.2);
 

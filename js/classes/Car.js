@@ -89,7 +89,7 @@ function animateCars(){
             scene.remove(car);
             var I = cars.indexOf(car);
             if (I > -1) {
-                array.splice(I, 1);
+                cars.splice(I, 1);
             }
         }
     }

@@ -49,8 +49,10 @@ function CreateTrees()
             var tree = CreateTree();
             var treeX = 600*(Math.round(33 * Math.random())) - 10000;
             for(let k = 0; k<trees.length; k++){
+                if(trees[k].position.z == treeZ)
                 while(trees[k].position.x == treeX && trees[k].position.z == treeZ){
                     treeX = 600*(Math.round(33 * Math.random())) - 10000;
+                    k=0;
                 }
             }
             tree.position.set(treeX,0,treeZ);

@@ -1,6 +1,6 @@
 
 
-
+var coinScore = 0;
 function Coin()
 {
     this.WholeCoin = new THREE.Group();
@@ -10,14 +10,7 @@ function Coin()
     var PCounter = 400;
     var InitialTranslate = 300;
 
-    function animate()
-     {
-       x.rotation.z +=0.01
-
-       requestAnimationFrame(animate)
-       renderer.render(scene, camera)
-       cancelAnimationFrame(animate)
-     }
+  
 
     for(var i = 1; i <= 1;i++)
     {
@@ -32,7 +25,6 @@ function Coin()
         x.rotation.x = 2
         x.rotation.y = 1.5
         this.WholeCoin.add(x);
-        // animate();
     }
 }
 
@@ -45,30 +37,47 @@ function CreateCoin()
 
     return coin;
 }
-
+function removeCoin(coin)
+{
+    scene.remove(coin);
+    var I = coins.indexOf(coin);
+    if (I > -1) {
+        coins.splice(I, 1);
+    }
+}
 var coins = [];
 function CreateCoins()
 {
     for(let i = platforms_count; i < platforms.length; i++){
-        var coins_number = Math.floor(Math.random()*5+ 2);
+        var coins_number = Math.round(Math.random()*1);
         var coinZ = platforms[i].position.z;
         for(let j = 0; j<coins_number;j++){
             var coin = CreateCoin();
             var coinX = 600*(Math.round(33 * Math.random())) - 10000;
+            coinX-=100;
             for(let k = 0; k<coins.length; k++){
-                while(coins[k].position.x == coinX && coins[k].position.z == coinZ){
-                    coinX = 600*(Math.round(33 * Math.random())) - 10000;
+                if(coins[k].position.z == coinZ)
+                    while((coins[k].position.x == coinX && coins[k].position.z == coinZ)){
+                    coinX = 600*(Math.round(33 * Math.random())) - 10000 - 100;
+                    k=0;
+                }
+            }
+            for(let k = 0; k<trees.length;k++){
+                if(trees[k].position.z == coinZ){
+                    while(trees[k].position.x == coinX && trees[k].position.z == coinZ){
+                        coinX = 600*(Math.round(33 * Math.random())) - 10000 - 100;
+                        k=0;
+                    }
                 }
             }
             coin.position.set(coinX,0,coinZ);
-            coin.translateX(-100);
 
             coins.push(coin);
         }
     }
 }
 
-function coinHit(player,direction){
+function coinHit(player){
     var playerX = player.position.x,
         playerZ = player.position.z;
     for(let i = 0; i < coins.length;i++){
@@ -76,12 +85,20 @@ function coinHit(player,direction){
             coinZ = coins[i].position.z;
         if(playerX >= coinX - 250 && playerX <= coinX + 250){
             if(playerZ >= coinZ - 250 && playerZ <= coinZ + 250){
-                directionReverse = "Down";
-                if(direction == "Down")      directionReverse = "Up";
-                else if(direction == "Left") directionReverse = "Right";
-                else if(direction == "Right") directionReverse = "Left";
-                animateMove(player,directionReverse,true);
+                coinScore+=10;
+                removeCoin(coins[i]);
+                user_interface.updateScore();
             }
         }
     }
 }
+
+function animateCoins(){
+    for(let i = 0; i<coins.length; i++){
+        if(-PLAYER.position.z + coins[i].position.z <= 600){
+          coins[i].rotation.y+=0.01;
+        }
+    }
+    window.requestAnimationFrame(animateCoins);
+}
+window.requestAnimationFrame(animateCoins);

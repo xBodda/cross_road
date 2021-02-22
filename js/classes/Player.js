@@ -42,6 +42,7 @@ function animateMove(player, direction,treeMoveC = false){
         setTimeout(function(){
             if(!treeMoveC)
                 treeHit(player,direction);
+            coinHit(player);
 
             if(direction == "Up" || direction == "Down"){
                 player.translateZ(10*(direction=="Up"?-1:1));

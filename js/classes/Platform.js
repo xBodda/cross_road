@@ -11,7 +11,7 @@ function Platform(startingLocationZ = 0)
     );
     Plane.rotateX(-Math.PI / 2 );
     Plane.position.set(0,0,0);
-    Plane.castShadow = true;
+    Plane.castShadow = false;
     Plane.receiveShadow = true;
     this.object.add(Plane);
     this.object.position.set(0,0,startingLocationZ);
@@ -39,6 +39,6 @@ function createPlatforms(startingPositionZ = 0){
             startingPositionZ-=600;
         }
 
-        CreateCoins();
         CreateTrees();
+        CreateCoins();
 }
