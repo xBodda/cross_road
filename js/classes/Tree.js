@@ -1,5 +1,5 @@
 var treeTexture = new THREE.MeshLambertMaterial({ flatShading: true,  map: THREE.ImageUtils.loadTexture('img/tree.jpg')})
-
+var trunkTexture = new THREE.MeshLambertMaterial({ flatShading: true,  map: THREE.ImageUtils.loadTexture('img/trunk.jpg')})
 function Tree()
 {
     this.WholeTree = new THREE.Group();
@@ -22,6 +22,56 @@ function Tree()
         var x = i;
         x = new THREE.Mesh(
             new THREE.BoxBufferGeometry(PCounter -= PositionCounter, 50, PCounter -= PositionCounter),
+            treeTexture
+        );
+        x.translateY(InitialTranslate+=PositionCounter);
+        x.castShadow = true;
+        x.receiveShadow = false;
+        this.WholeTree.add(x);
+    }
+}
+
+function Tree3()
+{
+    this.WholeTree = new THREE.Group();
+
+    var trunk = new THREE.Mesh(
+        new THREE.BoxGeometry(100, 160, 90),
+        trunkTexture
+    );
+    trunk.translateY(150);
+    trunk.castShadow = true;
+    trunk.receiveShadow = true;
+
+    var PositionCounter = 40;
+    var PCounter = 400;
+    var InitialTranslate = 300;
+
+    this.WholeTree.add(trunk);
+}
+
+function Tree2()
+{
+    this.WholeTree = new THREE.Group();
+
+    var trunk = new THREE.Mesh(
+        new THREE.BoxGeometry(100, 370, 90),
+        new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true})
+    );
+    trunk.translateY(150);
+    trunk.castShadow = true;
+    trunk.receiveShadow = true;
+
+    var PositionCounter = 30;
+    var PCounter = 300;
+    var InitialTranslate = 300;
+
+    this.WholeTree.add(trunk);
+    for(var i = 1; i <= 4;i++)
+    {
+        var x = i;
+        x = new THREE.Mesh(
+            new THREE.BoxBufferGeometry(PCounter -= PositionCounter, 250, PCounter -= PositionCounter),
             treeTexture
         );
         x.translateY(InitialTranslate+=PositionCounter);
