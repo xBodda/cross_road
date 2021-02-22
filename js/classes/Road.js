@@ -1,6 +1,5 @@
 
-
-
+var roadTexture = new THREE.MeshLambertMaterial({ flatShading: true, map: THREE.ImageUtils.loadTexture('img/road.jpg')});
 function Road(LocationZ = 0)
 {
     this.object = new THREE.Group();
@@ -8,7 +7,7 @@ function Road(LocationZ = 0)
         sizeZ = 600;
     var Plane = new THREE.Mesh(
         new THREE.PlaneGeometry(sizeX, sizeZ),
-        new THREE.MeshLambertMaterial({flatShading: true, map: THREE.ImageUtils.loadTexture('img/road.jpg')})
+        roadTexture
     );
     Plane.rotateX(-Math.PI / 2 );
     Plane.castShadow = true;

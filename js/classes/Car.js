@@ -64,6 +64,7 @@ function SpawnCar(road = {road:null,direction:0,difficulty:0,lane:0}){
 }
 
 function SpawnCars(){
+    if(!pause)
     for(let i = car_roads_count; i<roads.length; i++){
         SpawnCar(roads[i]);
         renderer.render(scene, camera);
@@ -75,6 +76,7 @@ function SpawnCars(){
 }
 
 function animateCars(){
+    if(!pause)
     for(let i = 0; i<cars.length;i++){
         var car = cars[i].car;
         var difficulty = cars[i].road.difficulty;
@@ -101,6 +103,8 @@ window.requestAnimationFrame(function(){
 });
 //Check car hits player
 function carCrash(car){
+    if(pause)
+        return;
     var carX = car.position.x,
         carZ = car.position.z;
     var PlayerX = PLAYER.position.x;

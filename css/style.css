@@ -1,5 +1,43 @@
-body {
-    background: black;
+* {
     margin: 0;
     padding: 0;
+    font-family: dispsableDroidBB;
+}
+body{
+    background-color: #fff;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#user-interface{
+    width:100vw;
+    height:100vh;
+    position: fixed;
+    z-index: 9999;
+}
+#user-interface .pause{
+    position: absolute;
+    top:10px;
+    right:10px;
+    width:50px;
+    height:50px;
+    background-color: #000;
+}
+
+#user-interface .score{
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+    left:10px;
+    top:10px;
+    color:wihte;
+    text-transform: uppercase;
+    color:white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+#user-interface .score::before{
+    content:"score: ";
 }

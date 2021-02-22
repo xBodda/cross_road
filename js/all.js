@@ -1,10 +1,6 @@
-var scene;
-var camera;
-
 
 var backwards;
-
-var renderer, scene, camera,cameraG;
+var renderer, scene, camera,cameraG,user_interface,pause = false;
 
 function Snowman()
 {
@@ -122,9 +118,15 @@ function init()
     Lights();
     renderer.render(scene, camera);
     genereateLevel();
+    user_interface = new UI();
 
 }
+window.addEventListener('resize',function(){
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = (window.innerWidth/window.innerHeight);
+    camera.updateProjectionMatrix();
 
+});
 init();
 
 function updateFrame() 
