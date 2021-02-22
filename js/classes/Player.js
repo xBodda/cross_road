@@ -1,4 +1,3 @@
-
 var PLAYER;
 function CreatePlayer()
 {
@@ -33,7 +32,7 @@ function animateMove(player, direction,treeMoveC = false){
     if(canMove || (treeMove && treeMoveC)){
     if(treeMoveC){
         treeMove = false;
-        canMove = false; 
+        canMove = false;
     }
     setPosition(direction);
     user_interface.updateScore();
@@ -43,7 +42,7 @@ function animateMove(player, direction,treeMoveC = false){
         setTimeout(function(){
             if(!treeMoveC)
                 treeHit(player,direction);
-            
+
             if(direction == "Up" || direction == "Down"){
                 player.translateZ(10*(direction=="Up"?-1:1));
                 cameraG.translateZ(10*(direction=="Up"?-1:1));
@@ -61,7 +60,6 @@ function animateMove(player, direction,treeMoveC = false){
     }
     }
 }
-
 function PlayerControls(player){
     var b = document.body;
     b.addEventListener('keydown',function(e){

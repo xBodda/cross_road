@@ -22,7 +22,7 @@ function Car()
     this.WholeCar.add(CarMid);
     var wheelMesh = new THREE.CylinderGeometry(30, 30, 30);
     var wheelMat = new THREE.MeshLambertMaterial({ color: 0x333333, flatShading: true });
-    
+
     var Wheel1 = new THREE.Mesh(wheelMesh,wheelMat),
         Wheel2 = new THREE.Mesh(wheelMesh,wheelMat);
     Wheels = new THREE.Group();
