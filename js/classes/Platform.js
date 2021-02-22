@@ -24,6 +24,10 @@ function CreatePlatform(startingPosition = 0){
     scene.add(platform);
     return platform;
 }
+function removePlatform(platform)
+{
+    scene.remove(platform);
+}
 var platforms = [];
 
 function createPlatforms(startingPositionZ = 0){

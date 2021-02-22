@@ -88,12 +88,19 @@ function coinHit(player){
                 coinScore+=10;
                 removeCoin(coins[i]);
                 user_interface.updateScore();
+                user_interface.scoreIncrease();
+                
             }
         }
     }
 }
 
 function animateCoins(){
+    if(pause){
+        window.requestAnimationFrame(animateCoins);
+        return;
+    }
+
     for(let i = 0; i<coins.length; i++){
         if(-PLAYER.position.z + coins[i].position.z <= 600){
           coins[i].rotation.y+=0.01;
@@ -101,4 +108,3 @@ function animateCoins(){
     }
     window.requestAnimationFrame(animateCoins);
 }
-window.requestAnimationFrame(animateCoins);
