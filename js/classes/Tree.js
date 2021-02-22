@@ -5,8 +5,9 @@ function Tree()
     this.WholeTree = new THREE.Group();
 
     var trunk = new THREE.Mesh(
-        new THREE.BoxGeometry(30, 300, 40),
-        new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true})
+        new THREE.BoxGeometry(70,350, 70),
+        //new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true})
+        trunkTexture
     );
     trunk.translateY(150);
     trunk.castShadow = true;
