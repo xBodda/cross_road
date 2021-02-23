@@ -1,12 +1,84 @@
 var treeTexture = new THREE.MeshLambertMaterial({ flatShading: true,  map: THREE.ImageUtils.loadTexture('img/tree.jpg')})
+var trunkTexture = new THREE.MeshLambertMaterial({ flatShading: true,  map: THREE.ImageUtils.loadTexture('img/trunk.jpg')})
+
 
 function Tree()
+{
+    this.WholeTree;
+    var treeRand = Math.round(Math.random()*1 + 1);
+    switch (treeRand) {
+      case 0:
+        this.WholeTree = Tree1();
+        break;
+      case 1:
+        this.WholeTree = Tree2();
+        break;
+      case 2:
+        this.WholeTree = Tree3();
+        break;
+    }
+}
+
+function Tree3()
 {
     this.WholeTree = new THREE.Group();
 
     var trunk = new THREE.Mesh(
-        new THREE.BoxGeometry(30, 300, 40),
+        new THREE.BoxGeometry(100, 160, 90),
+        trunkTexture
+    );
+    trunk.translateY(150);
+    trunk.castShadow = true;
+    trunk.receiveShadow = true;
+
+    var PositionCounter = 40;
+    var PCounter = 400;
+    var InitialTranslate = 300;
+
+    this.WholeTree.add(trunk);
+    return this.WholeTree;
+}
+
+function Tree2()
+{
+    this.WholeTree = new THREE.Group();
+
+    var trunk = new THREE.Mesh(
+        new THREE.BoxGeometry(100, 370, 90),
         new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true})
+    );
+    trunk.translateY(150);
+    trunk.castShadow = true;
+    trunk.receiveShadow = true;
+
+    var PositionCounter = 30;
+    var PCounter = 300;
+    var InitialTranslate = 300;
+
+    this.WholeTree.add(trunk);
+    for(var i = 1; i <= 4;i++)
+    {
+        var x = i;
+        x = new THREE.Mesh(
+            new THREE.BoxBufferGeometry(PCounter -= PositionCounter, 250, PCounter -= PositionCounter),
+            treeTexture
+        );
+        x.translateY(InitialTranslate+=PositionCounter);
+        x.castShadow = true;
+        x.receiveShadow = false;
+        this.WholeTree.add(x);
+    }
+    return this.WholeTree;
+}
+
+function Tree1()
+{
+    this.WholeTree = new THREE.Group();
+
+    var trunk = new THREE.Mesh(
+        new THREE.BoxGeometry(70,350, 70),
+        //new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true})
+        trunkTexture
     );
     trunk.translateY(150);
     trunk.castShadow = true;
@@ -29,8 +101,8 @@ function Tree()
         x.receiveShadow = false;
         this.WholeTree.add(x);
     }
+    return this.WholeTree;
 }
-
 
 function CreateTree()
 {
