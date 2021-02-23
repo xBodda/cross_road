@@ -1,6 +1,6 @@
 
 var backwards;
-var renderer, scene, camera,cameraG,user_interface,pause = false;
+var clock, renderer, scene, camera,cameraG,user_interface,pause = false,gameover = false;
 
 function Snowman()
 {
@@ -45,17 +45,17 @@ function Lights()
 
 
 function createSnow() {
-
+    
     var snowCount = 10000;
   
     var snowGeometry = new THREE.Geometry();
   
     for (var p = 0; p < snowCount; p++) {
   
-      var x = Math.random() * 15000 - 2000;
+      var x = Math.random() * 15000 - 8000;
       var y = Math.random() * 4000;
-      var z = Math.random() * 8000 - 2000;
-  
+      var z = PLAYER.position.z + (Math.random() * 8000 - 2000);
+        
       var particle = new THREE.Vector3(x, y, z);
   
       snowGeometry.vertices.push(particle);
@@ -66,17 +66,18 @@ function createSnow() {
       size: 10 });
   
     snowGeometry = new THREE.Points(snowGeometry, snowMaterial);
-  
+
     return snowGeometry;
 }
-
 
 function snowAnimate(speed) {
     var vertice = particles.geometry.vertices;
     for (var i = 0; i < vertice.length; i++) {
         var vert = vertice[i];
         if (vert.y < 0) {
-        vert.y = Math.random() * 2000;
+            console.log(PLAYER.position.z);
+            vert.z = PLAYER.position.z + (Math.random() * 8000 - 2000) 
+            vert.y = Math.random() * 4000;
         }
         vert.y = vert.y - speed * time;
     }
@@ -90,35 +91,29 @@ function init()
         alpha: true,
         antialias: true
     });
-
-    clock = new THREE.Clock(true);
-
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.soft = true;
     document.body.appendChild(renderer.domElement);
 
+    clock = new THREE.Clock(true);
     scene = new THREE.Scene();
-
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 4000, 2000);
-    camera.lookAt(0, 0, 0);
     camera.lookAt(new THREE.Vector3(0, 800, 0));
     cameraG = new THREE.Group();
     cameraG.add(camera);
-    scene.add(cameraG);
     PLAYER = CreatePlayer();
-    PlayerControls(PLAYER);
+    particles = createSnow();
+    scene.add(cameraG);
+    PlayerControls();
     CreatePlatform(_startingPositionZ);
     PLAYER.position.set(0,0,_startingPositionZ);
-
-    particles = createSnow();
-    scene.add(particles);
-    // CreateTree();
     Lights();
     renderer.render(scene, camera);
     genereateLevel();
     user_interface = new UI();
+    scene.add(particles)
 
 }
 window.addEventListener('resize',function(){
@@ -129,11 +124,52 @@ window.addEventListener('resize',function(){
 });
 init();
 
-function updateFrame() 
+function updateSnow() 
 {
   time = clock.getDelta();
   snowAnimate(300);
   renderer.render(scene, camera);
-  requestAnimationFrame(updateFrame);
+  requestAnimationFrame(updateSnow);
 }
-requestAnimationFrame(updateFrame);
+requestAnimationFrame(updateSnow);
+
+function pauseGame(){
+    pause = true;
+    user_interface.viewPauseMenu();
+}
+function unpauseGame(){
+    pause = false;
+    user_interface.hidePauseMenu();
+}
+
+window.onblur = function() { 
+    pauseGame();
+}
+window.requestAnimationFrame(animateCoins);
+window.requestAnimationFrame(function(){
+    animateCars();
+});
+function restartGame(){
+    while(scene.children.length > 0){ 
+        scene.remove(scene.children[0]); 
+    }
+    console.log(scene.children);
+     _startingPositionZ = 1000;
+    playerPosition = -1;
+    maxPlayerPosition = playerPosition;
+    coins = [];
+    trees = [];
+    roadsMap = [];
+    roads = [];
+    platforms = [];
+    roads_count = 0;
+    platforms_count = 0;
+    cars = [];
+    user_interface.clear();
+    gameover = false;
+    init();
+    window.requestAnimationFrame(animateCoins);
+    window.requestAnimationFrame(function(){
+        animateCars();
+    });
+}

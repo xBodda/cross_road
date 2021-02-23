@@ -1,5 +1,7 @@
 function Car()
 {
+
+    let avColors = [0x4d2fff,0xE51837,0x800080,0x037272,0xb500f4,0x1FD5ED,0xed1f91]
     this.WholeCar = new THREE.Group();
 
     var CarBody = new THREE.Mesh(
@@ -13,7 +15,7 @@ function Car()
 
     var CarMid = new THREE.Mesh(
         new THREE.BoxGeometry(130, 100, 100),
-        new THREE.MeshLambertMaterial({ color: 0x4d2fff, flatShading: true})
+        new THREE.MeshLambertMaterial({ color: avColors[Math.round(Math.random()*(avColors.length-1))], flatShading: true})
     );
     CarMid.translateY(160);
     // CarMid.position.z = 50;
@@ -48,6 +50,8 @@ function CreateCar()
 }
 var cars = [];
 function SpawnCar(road = {road:null,direction:0,difficulty:0,lane:0}){
+    if(pause)
+        return
     if(Math.abs(playerPosition - road.lane) < 7){
         if(road.road !== null){
             var car = CreateCar();
@@ -64,7 +68,8 @@ function SpawnCar(road = {road:null,direction:0,difficulty:0,lane:0}){
 }
 
 function SpawnCars(){
-    if(!pause)
+    if(pause)
+        return
     for(let i = car_roads_count; i<roads.length; i++){
         SpawnCar(roads[i]);
         renderer.render(scene, camera);
@@ -76,7 +81,13 @@ function SpawnCars(){
 }
 
 function animateCars(){
-    if(!pause)
+    
+    if(pause){
+        window.requestAnimationFrame(function(){
+            animateCars();
+        });
+        return;
+    }
     for(let i = 0; i<cars.length;i++){
         var car = cars[i].car;
         var difficulty = cars[i].road.difficulty;
@@ -98,9 +109,7 @@ function animateCars(){
         animateCars();
     });
 }
-window.requestAnimationFrame(function(){
-    animateCars();
-});
+
 //Check car hits player
 function carCrash(car){
     if(pause)
@@ -112,7 +121,9 @@ function carCrash(car){
 
     if(PlayerX >= carX - 200 && PlayerX <= carX + 200){
         if(PlayerZ >= carZ - 200 && PlayerZ <= carZ + 200){
-            alert('game over');
+            gameover = true;
+            pause = true;
+            user_interface.showGameover();
         }
     }
 }

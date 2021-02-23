@@ -89,7 +89,14 @@ function CreateTree()
     scene.add(tree);
     return tree;
 }
-
+function removeTree(tree)
+{
+    scene.remove(tree);
+    var I = trees.indexOf(tree);
+    if (I > -1) {
+        trees.splice(I, 1);
+    }
+}
 var trees = [];
 function CreateTrees()
 {
