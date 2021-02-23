@@ -5,7 +5,7 @@ var trunkTexture = new THREE.MeshLambertMaterial({ flatShading: true,  map: THRE
 function Tree()
 {
     this.WholeTree;
-    var treeRand = Math.round(Math.random()*2);
+    var treeRand = Math.round(Math.random()*1 + 1);
     switch (treeRand) {
       case 0:
         this.WholeTree = Tree1();
@@ -17,7 +17,6 @@ function Tree()
         this.WholeTree = Tree3();
         break;
     }
-    return this.WholeTree;
 }
 
 function Tree3()
