@@ -1,4 +1,3 @@
-
 var PLAYER;
 function CreatePlayer()
 {
@@ -33,7 +32,7 @@ function animateMove(player, direction,treeMoveC = false){
     if(canMove || (treeMove && treeMoveC)){
     if(treeMoveC){
         treeMove = false;
-        canMove = false; 
+        canMove = false;
     }
     setPosition(direction);
     user_interface.updateScore();
@@ -43,7 +42,8 @@ function animateMove(player, direction,treeMoveC = false){
         setTimeout(function(){
             if(!treeMoveC)
                 treeHit(player,direction);
-            
+            coinHit(player);
+
             if(direction == "Up" || direction == "Down"){
                 player.translateZ(10*(direction=="Up"?-1:1));
                 cameraG.translateZ(10*(direction=="Up"?-1:1));
@@ -61,8 +61,7 @@ function animateMove(player, direction,treeMoveC = false){
     }
     }
 }
-
-function PlayerControls(player){
+function PlayerControls(player = PLAYER){
     var b = document.body;
     b.addEventListener('keydown',function(e){
         if(pause)
@@ -79,6 +78,8 @@ function PlayerControls(player){
         }
 
         if(e.key == 's' || e.key == 'ArrowDown'){
+            if(maxPlayerPosition - playerPosition > 4 || playerPosition == -1)
+                return;
             animateMove(player, "Down");
             return;
         }
@@ -90,11 +91,13 @@ function PlayerControls(player){
     })
 }
 var playerPosition = -1;
+var maxPlayerPosition = playerPosition;
 function setPosition(direction = ""){
     if(pause)
         return;
     if(direction == "Up"){
         playerPosition++;
+        if(playerPosition > maxPlayerPosition) maxPlayerPosition = playerPosition;
     }
     else if(direction == "Down"){
         playerPosition--;

@@ -19,11 +19,86 @@ html,body{
 }
 #user-interface .pause{
     position: absolute;
-    top:10px;
-    right:10px;
+    bottom:10px;
+    left:10px;
     width:50px;
     height:50px;
-    background-color: #000;
+    background-image: url('../img/pausebutton.png');
+    background-position: bottom center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+#user-interface .pause:hover{
+    background-image: url('../img/pausebuttonhover.png');
+}
+#user-interface .pause:active{
+    background-image: url('../img/pausebuttonclick.png');
+}
+
+#user-interface .pause-menu{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
+    display: none;
+}
+#user-interface .pause-menu.show{
+    display: block;
+}
+
+#user-interface .play-button{
+    position: absolute;
+    top:200px;
+    left:50%;
+    transform:translateX(-50%);
+    width:549px;
+    height:176px;
+    background-image: url('../img/PLAY.png');
+    background-position: bottom center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+#user-interface .play-button:hover{
+    background-image: url('../img/PLAYhover.png');
+}
+#user-interface .play-button:active{
+    background-image: url('../img/PLAYclick.png');
+}
+
+#user-interface .credits-button{
+    position: absolute;
+    top:400px;
+    left:50%;
+    transform:translateX(-50%);
+    width:382px;
+    height:102px;
+    background-image: url('../img/Credits.png');
+    background-position: bottom center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+#user-interface .credits-button:hover{
+    background-image: url('../img/Credits\ \(Hover\ State\).png');
+}
+#user-interface .credits-button:active{
+    background-image: url('../img/Credits\ \(Click\).png');
+}
+#user-interface .ganeover-menu .play-button{
+    top:300px;
+}
+#user-interface .ganeover-menu h1{
+    position: absolute;
+    top:100px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size: 80px;
+    color:white;
 }
 
 #user-interface .score{
@@ -40,4 +115,13 @@ html,body{
 }
 #user-interface .score::before{
     content:"score: ";
+}
+#user-interface .score::after{
+    content:" +10";
+    color:green;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+#user-interface .score.score-increase::after{
+    opacity: 1;;
 }
